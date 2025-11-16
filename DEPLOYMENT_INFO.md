@@ -4,8 +4,8 @@
 
 **Deployed:** November 15, 2025
 **Client:** Walter Peters
-**Invitation Code:** C5jnncnd6
-**Password:** BGWealth2025
+**Invitation Code:** A3k16Uam5S00
+**Password:** Walter2025
 
 ---
 
@@ -18,7 +18,7 @@ https://bg-walter-peters.vercel.app
 
 ### Latest Deployment
 ```
-https://bg-walter-peters-ae9mdh8qe-sony-hos-projects.vercel.app
+https://bg-walter-peters-qp749vpm8-sony-hos-projects.vercel.app
 ```
 
 ### GitHub Repository
@@ -36,13 +36,13 @@ https://vercel.com/sony-hos-projects/bg-walter-peters
 ## 🔑 Access Information
 
 ### Password Protection
-**Password:** `BGWealth2025`
+**Password:** `Walter2025`
 
 Users must enter this password to access the dashboard.
 
 ### Invitation Code
-**Code:** `C5jnncnd6`
-**Link:** `https://dsj927.com?code=C5jnncnd6`
+**Code:** `A3k16Uam5S00`
+**Link:** `https://dsj927.com?code=A3k16Uam5S00`
 
 This code is displayed inside the dashboard after authentication.
 
@@ -88,7 +88,7 @@ This deployment uses the **exact same code** as the main bg-trader-dashboard.ver
 
 ### Walter Peters Dashboard (This)
 - **URL:** https://bg-walter-peters.vercel.app
-- **Code:** C5jnncnd6
+- **Code:** A3k16Uam5S00
 - **Purpose:** Walter Peters' dedicated instance
 
 **Note:** Both use the same codebase. Only the invitation code differs.
@@ -100,15 +100,15 @@ This deployment uses the **exact same code** as the main bg-trader-dashboard.ver
 ### Invitation Code Location
 File: `/components/InvitationCode.tsx`
 ```typescript
-const INVITATION_CODE = 'C5jnncnd6';
+const INVITATION_CODE = 'A3k16Uam5S00';
 const INVITATION_LINK = `https://dsj927.com?code=${INVITATION_CODE}`;
 ```
 
 ### Password Location
 File: `/components/PasswordProtection.tsx`
 ```typescript
-// Password: BGWealth2025
-if (password === 'BGWealth2025') {
+// Password: Walter2025
+if (password === 'Walter2025') {
   setIsAuthenticated(true);
   // ...
 }
@@ -155,7 +155,7 @@ To change the invitation code:
 ## 🔗 Custom Domain Setup
 
 ### Current Configuration
-The invitation link is configured as: `https://dsj927.com?code=C5jnncnd6`
+The invitation link is configured as: `https://dsj927.com?code=A3k16Uam5S00`
 
 ### To Activate Custom Domain
 
@@ -175,15 +175,15 @@ The invitation link is configured as: `https://dsj927.com?code=C5jnncnd6`
 ### 1. Test Password Protection
 1. Visit: https://bg-walter-peters.vercel.app
 2. You should see a password screen
-3. Enter: `BGWealth2025`
+3. Enter: `Walter2025`
 4. You should be redirected to language selection
 
 ### 2. Test Invitation Code
 1. After logging in with password
 2. Select language (English or Vietnamese)
 3. Scroll to "My invitation code" section
-4. Verify code shows: `C5jnncnd6`
-5. Verify link shows: `https://dsj927.com?code=C5jnncnd6`
+4. Verify code shows: `A3k16Uam5S00`
+5. Verify link shows: `https://dsj927.com?code=A3k16Uam5S00`
 
 ### 3. Test Features
 - ✅ Language toggle works
@@ -275,7 +275,7 @@ If the main dashboard (bg-trader-dashboard.vercel.app) gets updated and you want
    ```bash
    cd ~/Active_Projects/bg-walter-peters
    # Edit components/InvitationCode.tsx
-   # Set INVITATION_CODE = 'C5jnncnd6'
+   # Set INVITATION_CODE = 'A3k16Uam5S00'
    ```
 
 4. Commit and deploy:
@@ -291,8 +291,8 @@ If the main dashboard (bg-trader-dashboard.vercel.app) gets updated and you want
 ## ✅ Deployment Checklist
 
 - [x] Source code copied from BG Wealth Webapp
-- [x] Invitation code updated to C5jnncnd6
-- [x] Password confirmed (BGWealth2025)
+- [x] Invitation code updated to A3k16Uam5S00
+- [x] Password confirmed (Walter2025)
 - [x] Committed to GitHub
 - [x] Deployed to Vercel
 - [x] Production URL active
