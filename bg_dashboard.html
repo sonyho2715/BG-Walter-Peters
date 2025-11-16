@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BG Trader - Onboarding Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .sidebar-collapsed {
+            transform: translateX(-100%);
+        }
+        .checkbox-item {
+            transition: all 0.3s ease;
+        }
+        .checkbox-item.completed {
+            background-color: rgba(34, 197, 94, 0.05);
+            border-color: rgb(134, 239, 172);
+        }
+        @media (max-width: 768px) {
+            .sidebar-mobile {
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 16rem;
+                z-index: 40;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar-mobile.open {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function BG_Dashboard() {
+            const [currentStep, setCurrentStep] = useState(0);
+            const [completedSteps, setCompletedSteps] = useState([]);
+            const [completedItems, setCompletedItems] = useState({});
+            const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+            const [expandedVideos, setExpandedVideos] = useState({});
+            const [userProfile, setUserProfile] = useState({
+                name: 'New Member',
+                email: 'user@example.com',
+                depositAmount: 0
+            });
+
+            // Load from localStorage
+            useEffect(() => {
+                const saved = localStorage.getItem('bgDashboard');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    setCompletedSteps(data.completedSteps || []);
+                    setCompletedItems(data.completedItems || {});
+                    setUserProfile(data.userProfile || userProfile);
+                }
+            }, []);
+
+            // Save to localStorage
+            useEffect(() => {
+                localStorage.setItem('bgDashboard', JSON.stringify({
+                    completedSteps,
+                    completedItems,
+                    userProfile
+                }));
+            }, [completedSteps, completedItems, userProfile]);
+
+            const tutorials = [
+                {
+                    title: "Create Your Account",
+                    duration: "5 min",
+                    icon: "👤",
+                    description: "Set up your DSJ account and get started",
+                    videos: [
+                        { title: "Account Creation Guide", id: "YUu-bGnu5SI" }
+                    ],
+                    sections: [
+                        {
+                            heading: "Step 1: Get Invitation Link",
+                            content: [
+                                "Ask your referrer to log into their DSJ account",
+                                "Click the person icon (top left) → Select 'Share with friends'",
+                                "Copy your 'My invitation code link'",
+                                "Send the link to new members"
+                            ]
+                        },
+                        {
+                            heading: "Step 2: Register New Account",
+                            content: [
+                                "Open the invitation link in Safari or Chrome",
+                                "You can register with Email or Mobile Number",
+                                "Fill in your email address and get verification code",
+                                "Enter the code (if it's math like '9-5=?' just enter result)",
+                                "Create and confirm your password",
+                                "Click Register"
+                            ]
+                        },
+                        {
+                            heading: "Step 3: Log In",
+                            content: [
+                                "Enter your email and password on the login screen",
+                                "Click 'Save Password' for easy access later",
+                                "Click 'Log In' to access DSJ Exchange"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    title: "Deposit & Setup Assets",
+                    duration: "10 min",
+                    icon: "💰",
+                    description: "Add funds to your trading account",
+                    videos: [],
+                    sections: [
+                        {
+                            heading: "Get Your Deposit Info",
+                            content: [
+                                "Click Assets (bottom right corner)",
+                                "Click Deposit",
+                                "Screenshot the QR code",
+                                "Copy the deposit link",
+                                "Send both to your referrer"
+                            ]
+                        },
+                        {
+                            heading: "Send Funds via Zelle",
+                            content: [
+                                "Wait for seller's Zelle information",
+                                "Send payment via Zelle",
+                                "Screenshot proof of payment",
+                                "Send screenshot to your referrer",
+                                "Wait for seller to deposit crypto into your DSJ account"
+                            ]
+                        },
+                        {
+                            heading: "Verify Your Deposit",
+                            content: [
+                                "Go to Assets and check your balance",
+                                "You should see your deposit amount in your account",
+                                "If you deposited $500+, you'll see reward bonuses",
+                                "You're ready for the next step!"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    title: "Join BonChat",
+                    duration: "8 min",
+                    icon: "💬",
+                    description: "Connect with the community on BonChat",
+                    videos: [
+                        { title: "BonChat Setup Video", id: "YUu-bGnu5SI" }
+                    ],
+                    sections: [
+                        {
+                            heading: "Download BonChat",
+                            content: [
+                                "Click: https://www.bonchat.live/?id=d333666",
+                                "OR search 'BonChat' in App Store (iPhone) or Google Play (Android)",
+                                "Download and open the app"
+                            ]
+                        },
+                        {
+                            heading: "Enter Server ID",
+                            content: [
+                                "Open BonChat app",
+                                "You'll see 'Server ID/Domain' field",
+                                "For USA: Enter D333666",
+                                "For Vietnam/Europe/Africa/Asia: Enter S333666",
+                                "Click Join"
+                            ]
+                        },
+                        {
+                            heading: "Create Account",
+                            content: [
+                                "Click 'Sign up' at the bottom",
+                                "Select your country",
+                                "Enter your phone number",
+                                "Click 'Send' to get SMS code",
+                                "Enter the code in 'SMS Code' field",
+                                "Check both confirmation boxes",
+                                "Click 'Continue'"
+                            ]
+                        },
+                        {
+                            heading: "Add Professors & Assistants",
+                            content: [
+                                "USA & International: Add Stephen03 & Elena03",
+                                "Vietnam Only: Add Stephen001 & RosaRosa8",
+                                "Search each name, click, say 'Hi' and click 'Send Request'",
+                                "Wait for approval"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    title: "Complete Registration Form",
+                    duration: "5 min",
+                    icon: "📋",
+                    description: "Fill out your profile information",
+                    videos: [],
+                    sections: [
+                        {
+                            heading: "Elena's Questions",
+                            content: [
+                                "Elena will ask: 'Did you register using email or phone?'",
+                                "If you used email for DSJ: Provide your email",
+                                "If you used phone for DSJ: Provide your phone number"
+                            ]
+                        },
+                        {
+                            heading: "BG-Wealth Form",
+                            content: [
+                                "Full Name: Your complete name",
+                                "Country/Region: Your location",
+                                "Deposit Amount: How much you deposited",
+                                "New Account ID: Your DSJ account ID",
+                                "Recommended Account ID: Your referrer's DSJ account ID"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    title: "Start Trading",
+                    duration: "3 min",
+                    icon: "📊",
+                    description: "Move funds and begin trading",
+                    videos: [],
+                    sections: [
+                        {
+                            heading: "Transfer to Trading Account",
+                            content: [
+                                "Log into DSJ account",
+                                "Click Assets (bottom right)",
+                                "Click 'Transfer'",
+                                "Select 'All' to transfer everything",
+                                "Move funds from Exchange → Trade account",
+                                "You're now ready to trade! 🥳"
+                            ]
+                        },
+                        {
+                            heading: "Trading Schedule",
+                            content: [
+                                "Trading times (EST): 1:20 PM and 7:20 PM",
+                                "You have 10 minutes to execute each trade",
+                                "SET ALARMS for your local timezone",
+                                "Bonus signals start on Day 2"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    title: "Follow Bonus Signals",
+                    duration: "4 min",
+                    icon: "🎯",
+                    description: "Learn to execute bonus signal trades",
+                    videos: [
+                        { title: "Bonus Trading Tutorial", id: "5ZaTrGK70iw" },
+                        { title: "Advanced Trading Tips", id: "wH89VHy9Fec" }
+                    ],
+                    sections: [
+                        {
+                            heading: "Bonus Trading Process",
+                            content: [
+                                "NO CODE NEEDED for bonuses",
+                                "Simply click: Futures → Invited me → Confirm to follow order",
+                                "You have 10 minutes after signal is sent",
+                                "Bonuses available 2-3 minutes before official time"
+                            ]
+                        },
+                        {
+                            heading: "Day 1 Bonus Times (EST)",
+                            content: [
+                                "2:00 PM EST",
+                                "2:30 PM EST",
+                                "8:30 PM EST",
+                                "9:00 PM EST"
+                            ]
+                        },
+                        {
+                            heading: "Important Reminders",
+                            content: [
+                                "System time is EST (Florida/New York)",
+                                "Convert to your local timezone",
+                                "Set alarms for all trading & bonus times"
+                            ]
+                        }
+                    ]
+                }
+            ];
+
+            const tutorial = tutorials[currentStep];
+            const isCompleted = completedSteps.includes(currentStep);
+            const overallProgress = Math.round((completedSteps.length / tutorials.length) * 100);
+
+            const handleStepComplete = () => {
+                if (!completedSteps.includes(currentStep)) {
+                    setCompletedSteps([...completedSteps, currentStep]);
+                }
+            };
+
+            const handleItemComplete = (stepIdx, sectionIdx, itemIdx) => {
+                const key = `${stepIdx}-${sectionIdx}-${itemIdx}`;
+                setCompletedItems({
+                    ...completedItems,
+                    [key]: !completedItems[key]
+                });
+            };
+
+            const handleNext = () => {
+                if (currentStep < tutorials.length - 1) {
+                    setCurrentStep(currentStep + 1);
+                    setMobileMenuOpen(false);
+                }
+            };
+
+            const handlePrev = () => {
+                if (currentStep > 0) {
+                    setCurrentStep(currentStep - 1);
+                    setMobileMenuOpen(false);
+                }
+            };
+
+            const toggleVideo = (idx) => {
+                setExpandedVideos({
+                    ...expandedVideos,
+                    [idx]: !expandedVideos[idx]
+                });
+            };
+
+            return (
+                <div className="flex h-screen bg-gray-100 overflow-hidden">
+                    {/* Sidebar */}
+                    <div className={`hidden md:flex md:flex-col md:w-64 bg-indigo-700 text-white overflow-y-auto`}>
+                        <div className="p-6 border-b border-indigo-600">
+                            <h1 className="text-2xl font-bold">🚀 BG Trader</h1>
+                            <p className="text-indigo-200 text-sm mt-2">Onboarding</p>
+                        </div>
+
+                        <div className="p-4 m-4 bg-indigo-600 rounded-lg text-sm">
+                            <p className="font-semibold truncate">{userProfile.name}</p>
+                            <div className="mt-3 pt-3 border-t border-indigo-500">
+                                <p className="text-xs text-indigo-200 mb-2">Progress</p>
+                                <div className="bg-indigo-700 rounded-full h-2">
+                                    <div className="bg-green-400 h-2 rounded-full" style={{ width: `${overallProgress}%` }} />
+                                </div>
+                                <p className="text-xs font-bold mt-2 text-green-300">{overallProgress}%</p>
+                            </div>
+                        </div>
+
+                        <nav className="flex-1 px-4 py-4">
+                            {tutorials.map((t, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setCurrentStep(idx)}
+                                    className={`w-full text-left px-4 py-3 rounded-lg mb-2 transition text-sm ${
+                                        idx === currentStep
+                                            ? 'bg-white text-indigo-700 font-semibold'
+                                            : completedSteps.includes(idx)
+                                            ? 'bg-green-500 text-white'
+                                            : 'text-indigo-100 hover:bg-indigo-600'
+                                    }`}
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <span>{t.icon}</span>
+                                        <span className="truncate">{t.title}</span>
+                                    </div>
+                                </button>
+                            ))}
+                        </nav>
+                    </div>
+
+                    {/* Mobile Menu */}
+                    {mobileMenuOpen && (
+                        <div className="fixed inset-0 z-40 md:hidden">
+                            <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setMobileMenuOpen(false)} />
+                            <div className="absolute left-0 top-0 bottom-0 w-64 bg-indigo-700 text-white overflow-y-auto">
+                                <div className="p-4 flex justify-between items-center">
+                                    <h1 className="text-xl font-bold">🚀 BG</h1>
+                                    <button onClick={() => setMobileMenuOpen(false)}>✕</button>
+                                </div>
+                                <nav className="p-4">
+                                    {tutorials.map((t, idx) => (
+                                        <button
+                                            key={idx}
+                                            onClick={() => {
+                                                setCurrentStep(idx);
+                                                setMobileMenuOpen(false);
+                                            }}
+                                            className={`w-full text-left px-4 py-2 rounded-lg mb-2 text-sm ${
+                                                idx === currentStep
+                                                    ? 'bg-white text-indigo-700'
+                                                    : completedSteps.includes(idx)
+                                                    ? 'bg-green-500'
+                                                    : 'text-indigo-100'
+                                            }`}
+                                        >
+                                            {t.icon} {t.title}
+                                        </button>
+                                    ))}
+                                </nav>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Main Content */}
+                    <div className="flex-1 flex flex-col overflow-hidden">
+                        {/* Top Bar */}
+                        <div className="bg-white shadow px-4 md:px-8 py-4 flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <button
+                                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                                    className="md:hidden text-xl"
+                                >
+                                    ☰
+                                </button>
+                                <div>
+                                    <h2 className="text-xl md:text-2xl font-bold text-gray-800">{tutorial.title}</h2>
+                                    <p className="text-xs md:text-sm text-gray-600">{tutorial.description}</p>
+                                </div>
+                            </div>
+                            <div className="text-2xl">{tutorial.icon}</div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="flex-1 overflow-y-auto p-4 md:p-8">
+                            <div className="max-w-4xl mx-auto">
+                                {/* Videos */}
+                                {tutorial.videos.length > 0 && (
+                                    <div className="mb-8">
+                                        <h3 className="text-lg font-bold text-gray-800 mb-4">📹 Video Tutorials</h3>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            {tutorial.videos.map((video, idx) => (
+                                                <div key={idx} className="bg-white rounded-lg shadow overflow-hidden">
+                                                    <button
+                                                        onClick={() => toggleVideo(idx)}
+                                                        className="w-full aspect-video bg-gray-900 flex items-center justify-center relative"
+                                                    >
+                                                        <img 
+                                                            src={`https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`}
+                                                            alt={video.title}
+                                                            className="w-full h-full object-cover opacity-50"
+                                                            onError={(e) => {
+                                                                e.target.style.display = 'none';
+                                                            }}
+                                                        />
+                                                        <div className="absolute w-16 h-16 bg-red-600 rounded-full flex items-center justify-center">
+                                                            ▶
+                                                        </div>
+                                                    </button>
+                                                    <div className="p-4">
+                                                        <p className="font-semibold text-gray-800 mb-2">{video.title}</p>
+                                                        {expandedVideos[idx] && (
+                                                            <div className="mt-3 aspect-video">
+                                                                <iframe
+                                                                    width="100%"
+                                                                    height="100%"
+                                                                    src={`https://www.youtube.com/embed/${video.id}?autoplay=1`}
+                                                                    frameBorder="0"
+                                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                    allowFullScreen
+                                                                    className="rounded"
+                                                                />
+                                                            </div>
+                                                        )}
+                                                        <button
+                                                            onClick={() => toggleVideo(idx)}
+                                                            className="mt-3 w-full px-4 py-2 bg-indigo-600 text-white rounded font-semibold hover:bg-indigo-700 text-sm"
+                                                        >
+                                                            {expandedVideos[idx] ? 'Hide' : 'Watch'}
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Sections */}
+                                <div className="space-y-4">
+                                    {tutorial.sections.map((section, sectionIdx) => (
+                                        <div key={sectionIdx} className="bg-white rounded-lg shadow overflow-hidden">
+                                            <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 px-6 py-4">
+                                                <h3 className="text-base font-bold text-white">
+                                                    {sectionIdx + 1}. {section.heading}
+                                                </h3>
+                                            </div>
+                                            <div className="p-6 space-y-3">
+                                                {section.content.map((item, itemIdx) => {
+                                                    const key = `${currentStep}-${sectionIdx}-${itemIdx}`;
+                                                    const isChecked = completedItems[key];
+                                                    return (
+                                                        <div
+                                                            key={itemIdx}
+                                                            className={`checkbox-item flex items-start gap-3 p-3 rounded-lg border ${isChecked ? 'completed' : 'border-gray-200'}`}
+                                                        >
+                                                            <button
+                                                                onClick={() => handleItemComplete(currentStep, sectionIdx, itemIdx)}
+                                                                className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center mt-0.5 text-sm font-bold ${
+                                                                    isChecked
+                                                                        ? 'bg-green-500 border-green-500 text-white'
+                                                                        : 'border-gray-300'
+                                                                }`}
+                                                            >
+                                                                {isChecked ? '✓' : ''}
+                                                            </button>
+                                                            <p className={`text-sm flex-1 ${isChecked ? 'text-gray-500 line-through' : 'text-gray-700'}`}>
+                                                                {item}
+                                                            </p>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Alert */}
+                                <div className="mt-8 bg-blue-50 border-2 border-blue-200 rounded-lg p-6">
+                                    <p className="text-blue-900 font-bold mb-1">⏰ Important Reminder</p>
+                                    <p className="text-blue-800 text-sm">
+                                        All system times are in EST. Convert to your local timezone and set alarms!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Bottom Navigation */}
+                        <div className="bg-white border-t border-gray-200 px-4 md:px-8 py-4">
+                            <div className="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
+                                <button
+                                    onClick={handlePrev}
+                                    disabled={currentStep === 0}
+                                    className={`w-full sm:w-auto px-4 py-2 rounded font-semibold text-sm ${
+                                        currentStep === 0
+                                            ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                                            : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
+                                    }`}
+                                >
+                                    ← Previous
+                                </button>
+
+                                <button
+                                    onClick={handleStepComplete}
+                                    className={`flex-1 sm:flex-none px-6 py-2 rounded font-semibold text-sm ${
+                                        isCompleted
+                                            ? 'bg-green-500 text-white'
+                                            : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                                    }`}
+                                >
+                                    {isCompleted ? '✓ Completed' : 'Mark Complete'}
+                                </button>
+
+                                <button
+                                    onClick={handleNext}
+                                    disabled={currentStep === tutorials.length - 1}
+                                    className={`w-full sm:w-auto px-4 py-2 rounded font-semibold text-sm ${
+                                        currentStep === tutorials.length - 1
+                                            ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                                            : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                                    }`}
+                                >
+                                    Next →
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<BG_Dashboard />, document.getElementById('app'));
+    </script>
+</body>
+</html>

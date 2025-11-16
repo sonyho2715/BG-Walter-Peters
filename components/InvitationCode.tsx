@@ -1,0 +1,236 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { Copy, Check, Printer, Share2, ExternalLink } from 'lucide-react';
+
+interface InvitationCodeProps {
+  language: 'en' | 'vi';
+}
+
+const INVITATION_CODE = 'C5jnncnd6';
+const INVITATION_LINK = `https://dsj927.com?code=${INVITATION_CODE}`;
+
+export default function InvitationCode({ language }: InvitationCodeProps) {
+  const [copiedCode, setCopiedCode] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
+  const [showShareSuccess, setShowShareSuccess] = useState(false);
+
+  const copyToClipboard = async (text: string, type: 'code' | 'link') => {
+    try {
+      await navigator.clipboard.writeText(text);
+      if (type === 'code') {
+        setCopiedCode(true);
+        setTimeout(() => setCopiedCode(false), 2000);
+      } else {
+        setCopiedLink(true);
+        setTimeout(() => setCopiedLink(false), 2000);
+      }
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+
+  const openInvitationLink = () => {
+    window.open(INVITATION_LINK, '_blank');
+  };
+
+  const printInvitation = () => {
+    window.print();
+  };
+
+  const shareInvitation = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: language === 'en' ? 'Join AI Trading with DSJ' : 'Tham gia AI Trading với DSJ',
+          text: language === 'en'
+            ? `Use my invitation code: ${INVITATION_CODE} to join AI Trading!`
+            : `Sử dụng mã mời của tôi: ${INVITATION_CODE} để tham gia AI Trading!`,
+          url: INVITATION_LINK
+        });
+        setShowShareSuccess(true);
+        setTimeout(() => setShowShareSuccess(false), 2000);
+      } else {
+        // Fallback: copy to clipboard and show success message
+        await copyToClipboard(INVITATION_LINK, 'link');
+        setShowShareSuccess(true);
+        setTimeout(() => setShowShareSuccess(false), 2000);
+      }
+    } catch (err) {
+      if ((err as Error).name !== 'AbortError') {
+        console.error('Failed to share:', err);
+        // Still try to copy to clipboard as last resort
+        await copyToClipboard(INVITATION_LINK, 'link');
+        setShowShareSuccess(true);
+        setTimeout(() => setShowShareSuccess(false), 2000);
+      }
+    }
+  };
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Ctrl+C or Cmd+C to copy invitation code (when nothing is selected)
+      if ((e.ctrlKey || e.metaKey) && e.key === 'c' && !e.shiftKey) {
+        const selection = window.getSelection()?.toString();
+        if (!selection) {
+          e.preventDefault();
+          copyToClipboard(INVITATION_CODE, 'code');
+        }
+      }
+      // Ctrl+Shift+C to copy invitation link
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') {
+        e.preventDefault();
+        copyToClipboard(INVITATION_LINK, 'link');
+      }
+      // Ctrl+P to print
+      if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        e.preventDefault();
+        printInvitation();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, []);
+
+  return (
+    <div className="bg-gray-900 dark:bg-gray-950 rounded-xl p-6 mb-6">
+      {/* Success Animation for Share */}
+      {showShareSuccess && (
+        <div className="mb-4 p-4 bg-green-500/20 border border-green-500 rounded-lg animate-fade-in">
+          <p className="text-green-400 text-center font-semibold">
+            ✓ {language === 'en' ? 'Link copied to clipboard! Ready to share.' : 'Đã sao chép link! Sẵn sàng chia sẻ.'}
+          </p>
+        </div>
+      )}
+
+      <div className="space-y-6">
+        {/* Invitation Code */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            {language === 'en' ? 'My invitation code' : 'Mã mời của tôi'}
+          </label>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={INVITATION_CODE}
+              readOnly
+              className="flex-1 px-4 py-3 bg-gray-800 text-white rounded-lg font-mono text-lg border border-gray-700 focus:outline-none focus:border-yellow-500"
+            />
+            <button
+              onClick={() => copyToClipboard(INVITATION_CODE, 'code')}
+              className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap active:scale-95"
+            >
+              {copiedCode ? (
+                <>
+                  <Check size={18} className="animate-bounce" />
+                  {language === 'en' ? 'Copied!' : 'Đã sao!'}
+                </>
+              ) : (
+                <>
+                  <Copy size={18} />
+                  {language === 'en' ? 'Click copy' : 'Nhấn sao'}
+                </>
+              )}
+            </button>
+          </div>
+          <p className="text-xs text-gray-400 mt-1">
+            {language === 'en' ? '💡 Tip: Press Ctrl+C to copy' : '💡 Mẹo: Nhấn Ctrl+C để sao chép'}
+          </p>
+        </div>
+
+        {/* Invitation Link */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-2">
+            {language === 'en' ? 'My invitation code link' : 'Link mã mời của tôi'}
+          </label>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={INVITATION_LINK}
+              readOnly
+              className="flex-1 px-4 py-3 bg-gray-800 text-white rounded-lg font-mono text-sm border border-gray-700 focus:outline-none focus:border-yellow-500 break-all cursor-pointer hover:border-blue-500"
+              onClick={openInvitationLink}
+              title={language === 'en' ? 'Click to open link' : 'Nhấn để mở link'}
+            />
+            <button
+              onClick={openInvitationLink}
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap active:scale-95"
+            >
+              <ExternalLink size={18} />
+              {language === 'en' ? 'Open' : 'Mở'}
+            </button>
+            <button
+              onClick={() => copyToClipboard(INVITATION_LINK, 'link')}
+              className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap active:scale-95"
+            >
+              {copiedLink ? (
+                <>
+                  <Check size={18} className="animate-bounce" />
+                  {language === 'en' ? 'Copied!' : 'Đã sao!'}
+                </>
+              ) : (
+                <>
+                  <Copy size={18} />
+                  {language === 'en' ? 'Copy' : 'Sao'}
+                </>
+              )}
+            </button>
+          </div>
+          <p className="text-xs text-gray-400 mt-1">
+            {language === 'en' ? '💡 Tip: Click the link or press Ctrl+Shift+C to copy' : '💡 Mẹo: Nhấn vào link hoặc nhấn Ctrl+Shift+C để sao chép'}
+          </p>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-2 pt-4">
+          <button
+            onClick={shareInvitation}
+            className="flex-1 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
+          >
+            <Share2 size={18} />
+            {language === 'en' ? 'Share' : 'Chia sẻ'}
+          </button>
+          <button
+            onClick={printInvitation}
+            className="flex-1 px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
+          >
+            <Printer size={18} />
+            {language === 'en' ? 'Print' : 'In'}
+          </button>
+        </div>
+
+        {/* Instructions */}
+        <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-4 mt-4">
+          <p className="text-sm text-blue-200">
+            {language === 'en'
+              ? '💡 Share this invitation code or link with new members to help them register on DSJ Exchange.'
+              : '💡 Chia sẻ mã mời hoặc liên kết này với các thành viên mới để giúp họ đăng ký trên DSJ Exchange.'}
+          </p>
+        </div>
+
+        {/* Keyboard Shortcuts Help */}
+        <details className="bg-gray-800/50 rounded-lg p-4">
+          <summary className="cursor-pointer text-sm font-semibold text-gray-300 hover:text-white">
+            ⌨️ {language === 'en' ? 'Keyboard Shortcuts' : 'Phím tắt'}
+          </summary>
+          <div className="mt-3 space-y-2 text-xs text-gray-400">
+            <div className="flex justify-between">
+              <span>Ctrl + C</span>
+              <span>{language === 'en' ? 'Copy invitation code' : 'Sao chép mã mời'}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Ctrl + Shift + C</span>
+              <span>{language === 'en' ? 'Copy invitation link' : 'Sao chép link mời'}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Ctrl + P</span>
+              <span>{language === 'en' ? 'Print invitation' : 'In mã mời'}</span>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  );
+}
