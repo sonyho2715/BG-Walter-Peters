@@ -26,8 +26,8 @@ export default function PasswordProtection({ children }: PasswordProtectionProps
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Password: BGWealth2025
-    if (password === 'BGWealth2025') {
+    // Password: Walter2025
+    if (password === 'Walter2025') {
       setIsAuthenticated(true);
       sessionStorage.setItem('bg_auth', 'authenticated');
       setError('');

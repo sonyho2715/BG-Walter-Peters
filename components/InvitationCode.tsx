@@ -7,7 +7,7 @@ interface InvitationCodeProps {
   language: 'en' | 'vi';
 }
 
-const INVITATION_CODE = 'C5jnncnd6';
+const INVITATION_CODE = 'A3k16Uam5S00';
 const INVITATION_LINK = `https://dsj927.com?code=${INVITATION_CODE}`;
 
 export default function InvitationCode({ language }: InvitationCodeProps) {
