@@ -18,14 +18,14 @@ export default function HeroSection() {
       videoUrl: 'https://www.youtube.com/embed/JpGzpr9AjXA'
     },
     vi: {
-      title: 'Điều Gì Khiến BG Wealth Sharing Đáng Tin Cậy?',
-      subtitle: 'Xem hướng dẫn toàn diện này để hiểu tại sao hàng nghìn người tin tưởng BG Wealth Sharing',
+      title: 'Hướng Dẫn Đầy Đủ BG Chia Sẻ Tài Sản',
+      subtitle: 'Xem hướng dẫn toàn diện này để bắt đầu với BG Chia Sẻ Tài Sản và Sàn Giao Dịch DSJ',
       successRate: 'Tỷ Lệ Thành Công 99.6%',
       doubleTime: 'Tăng Gấp Đôi Trong 57 Ngày',
       steps: 'Các Bước Toàn Diện',
       dailyReturns: 'Lợi Nhuận Hàng Ngày',
       signals: 'Tín Hiệu Giao Dịch',
-      videoUrl: 'https://www.youtube.com/embed/JpGzpr9AjXA'
+      videoUrl: 'https://www.youtube.com/embed/V44Vatup9mE'
     }
   };
 

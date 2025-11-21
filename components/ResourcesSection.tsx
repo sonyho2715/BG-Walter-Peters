@@ -34,6 +34,16 @@ export default function ResourcesSection() {
 
   const videos = [
     {
+      title: language === 'en' ? '⭐ START HERE: Complete BG & DSJ Tutorial' : '⭐ BẮT ĐẦU TẠI ĐÂY: Hướng Dẫn Đầy Đủ BG & DSJ',
+      description: language === 'en'
+        ? '⚡ IMPORTANT: Watch this first to fully understand the system. Comprehensive guide covering all steps from account creation to trading'
+        : '⚡ QUAN TRỌNG: Xem video này trước để hiểu đầy đủ hệ thống. Hướng dẫn toàn diện bao gồm tất cả các bước từ tạo tài khoản đến giao dịch',
+      icon: '🎥',
+      url: 'https://www.youtube.com/watch?v=_68YSwkVbiE',
+      duration: '47 min',
+      featured: true
+    },
+    {
       title: language === 'en' ? 'BG Wealth 2025 USA Annual Meeting' : 'Hội Nghị Thường Niên BG Wealth 2025 USA',
       description: language === 'en'
         ? 'CEO Stephen Beard unveils exciting plans and prizes for 2025'
@@ -95,15 +105,6 @@ export default function ResourcesSection() {
       icon: '💰',
       url: 'https://www.youtube.com/watch?v=dA42P1SNqao',
       duration: '4 min'
-    },
-    {
-      title: language === 'en' ? 'Complete BG & DSJ Tutorial' : 'Hướng Dẫn Đầy Đủ BG & DSJ',
-      description: language === 'en'
-        ? 'Comprehensive guide covering all steps from account creation to trading'
-        : 'Hướng dẫn toàn diện bao gồm tất cả các bước từ tạo tài khoản đến giao dịch',
-      icon: '🎥',
-      url: 'https://www.youtube.com/watch?v=_68YSwkVbiE',
-      duration: '47 min'
     },
     {
       title: language === 'en' ? 'BonChat Setup Guide' : 'Hướng Dẫn Thiết Lập BonChat',
