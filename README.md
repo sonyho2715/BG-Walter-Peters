@@ -122,7 +122,7 @@ Or push to GitHub and connect your repository to Vercel for automatic deployment
 5. **Fund Your DSG Account** - Deposit USDT to start trading
 6. **Transfer to Trade Account** - Move funds to your trading wallet
 7. **Join BonChat Community** - Connect with the BG community
-8. **Execute Daily Trades** - Learn to execute trading codes (99.86% success rate)
+8. **Execute Daily Trades** - Learn to execute trading codes (99.6% success rate)
 9. **Daily Compounding & Growth** - Understand earning potential
 10. **Withdrawal Process** - Learn how to withdraw your profits
 

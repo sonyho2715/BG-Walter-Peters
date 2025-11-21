@@ -294,7 +294,7 @@ export const tutorials: Tutorial[] = [
       {
         heading: "Success Rate",
         content: [
-          "99.86% winning ratio with Dr. Beard's codes",
+          "99.6% winning ratio with Dr. Beard's codes",
           "Follow instructions exactly as provided",
           "If technical error occurs, screenshot and send to Elena/Stephen",
           "Missed signals cannot be recovered"
