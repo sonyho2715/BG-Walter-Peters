@@ -34,6 +34,24 @@ export default function ResourcesSection() {
 
   const videos = [
     {
+      title: language === 'en' ? 'BG Wealth 2025 USA Annual Meeting' : 'Hội Nghị Thường Niên BG Wealth 2025 USA',
+      description: language === 'en'
+        ? 'CEO Stephen Beard unveils exciting plans and prizes for 2025'
+        : 'CEO Stephen Beard công bố kế hoạch và giải thưởng hấp dẫn cho năm 2025',
+      icon: '🎯',
+      url: 'https://www.youtube.com/watch?v=dhCKfcre90k',
+      duration: '15 min'
+    },
+    {
+      title: language === 'en' ? 'BG Wealth Sharing Annual Meeting Las Vegas' : 'Hội Nghị Thường Niên BG Wealth Sharing Las Vegas',
+      description: language === 'en'
+        ? 'Highlights from the BG Wealth Sharing annual meeting in Las Vegas'
+        : 'Những điểm nổi bật từ hội nghị thường niên BG Wealth Sharing tại Las Vegas',
+      icon: '🎰',
+      url: 'https://www.youtube.com/watch?v=XuBZ7iimYT4',
+      duration: '12 min'
+    },
+    {
       title: language === 'en' ? 'How to Get DSJ Referral Link' : 'Cách Lấy Link Giới Thiệu DSJ',
       description: language === 'en'
         ? 'Learn how to obtain your referral link to invite new members'

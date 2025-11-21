@@ -8,24 +8,24 @@ export default function HeroSection() {
 
   const content = {
     en: {
-      title: 'Complete BG Wealth Sharing Tutorial',
-      subtitle: 'Watch this comprehensive guide to get started with BG Wealth Sharing and DSJ Exchange',
+      title: 'What Makes BG Wealth Sharing So Trusted?',
+      subtitle: 'Watch this comprehensive guide to understand why thousands trust BG Wealth Sharing',
       successRate: '99.6% Success Rate',
       doubleTime: 'Double in 57 Days',
       steps: 'Comprehensive Steps',
       dailyReturns: 'Daily Returns',
       signals: 'Trading Signals',
-      videoUrl: 'https://www.youtube.com/embed/hvqE5IZwi7k'
+      videoUrl: 'https://www.youtube.com/embed/JpGzpr9AjXA'
     },
     vi: {
-      title: 'Hướng Dẫn Đầy Đủ BG Chia Sẻ Tài Sản',
-      subtitle: 'Xem hướng dẫn toàn diện này để bắt đầu với BG Chia Sẻ Tài Sản và Sàn Giao Dịch DSJ',
+      title: 'Điều Gì Khiến BG Wealth Sharing Đáng Tin Cậy?',
+      subtitle: 'Xem hướng dẫn toàn diện này để hiểu tại sao hàng nghìn người tin tưởng BG Wealth Sharing',
       successRate: 'Tỷ Lệ Thành Công 99.6%',
       doubleTime: 'Tăng Gấp Đôi Trong 57 Ngày',
       steps: 'Các Bước Toàn Diện',
       dailyReturns: 'Lợi Nhuận Hàng Ngày',
       signals: 'Tín Hiệu Giao Dịch',
-      videoUrl: 'https://www.youtube.com/embed/V44Vatup9mE'
+      videoUrl: 'https://www.youtube.com/embed/JpGzpr9AjXA'
     }
   };
 
