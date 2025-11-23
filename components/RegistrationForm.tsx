@@ -65,7 +65,7 @@ export default function RegistrationForm({ onSwitchToLogin }: { onSwitchToLogin:
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 max-w-md w-full">
       <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-2">
-        Join BG Trading
+        Join AI Trading
       </h2>
       <p className="text-center text-gray-600 dark:text-gray-400 mb-6">
         Register to access your dashboard
