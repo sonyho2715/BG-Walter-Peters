@@ -2,9 +2,12 @@
 
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { ArrowRight, TrendingUp, Shield, Users, Clock, DollarSign, Target, CheckCircle2, Star, BarChart3, Zap, Lock, Award, Globe, ChevronDown, Play, Calculator } from 'lucide-react';
+import AuthModal from '@/components/AuthModal';
+import { checkAuth } from '@/app/actions/auth';
 
-function InteractiveCalculator() {
+function InteractiveCalculator({ onGetStarted }: { onGetStarted: () => void }) {
   const [investment, setInvestment] = useState(1000);
   const [days, setDays] = useState(30);
   const [dailyRate] = useState(1.3);
@@ -173,12 +176,12 @@ function InteractiveCalculator() {
                 </div>
               </div>
 
-              <Link
-                href="/dashboard"
+              <button
+                onClick={onGetStarted}
                 className="mt-8 w-full block text-center bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-indigo-500/50 transition-all duration-300 hover:scale-105"
               >
                 Start Trading Now
-              </Link>
+              </button>
             </div>
 
             <p className="text-gray-500 text-xs text-center mt-4">
@@ -192,10 +195,23 @@ function InteractiveCalculator() {
 }
 
 export default function LandingPage() {
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [visibleStats, setVisibleStats] = useState(false);
   const statsRef = useRef<HTMLDivElement>(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'register' | 'login'>('register');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
+
+  // Check if user is logged in
+  useEffect(() => {
+    checkAuth().then((result) => {
+      setIsLoggedIn(result.isLoggedIn);
+      setAuthLoading(false);
+    });
+  }, []);
 
   // Animated counter
   const [stats, setStats] = useState({
@@ -345,16 +361,47 @@ export default function LandingPage() {
               </span>
             </div>
             <div className="flex items-center gap-4">
-              <Link
-                href="/dashboard"
-                className="group relative bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-8 py-3 rounded-full font-semibold overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50"
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  Launch Dashboard
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-              </Link>
+              {!authLoading && (
+                <>
+                  {isLoggedIn ? (
+                    <Link
+                      href="/dashboard"
+                      className="group relative bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-8 py-3 rounded-full font-semibold overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50"
+                    >
+                      <span className="relative z-10 flex items-center gap-2">
+                        Dashboard
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </Link>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => {
+                          setAuthMode('login');
+                          setIsAuthModalOpen(true);
+                        }}
+                        className="text-white hover:text-indigo-300 transition-colors font-medium"
+                      >
+                        Log In
+                      </button>
+                      <button
+                        onClick={() => {
+                          setAuthMode('register');
+                          setIsAuthModalOpen(true);
+                        }}
+                        className="group relative bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-8 py-3 rounded-full font-semibold overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50"
+                      >
+                        <span className="relative z-10 flex items-center gap-2">
+                          Get Started
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </button>
+                    </>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -379,7 +426,7 @@ export default function LandingPage() {
                 <span className="relative inline-block">
                   <span className="absolute inset-0 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 blur-2xl opacity-50" />
                   <span className="relative bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                    $1,000+ in 30 Days
+                    $1,000+ in 60 days
                   </span>
                 </span>
               </h1>
@@ -393,36 +440,26 @@ export default function LandingPage() {
                 Our AI does the hard work for you. Just follow the signals, execute trades in minutes, and watch your portfolio grow. Backed by proven 99.6% accuracy.
               </p>
 
-              {/* Social Proof Mini */}
-              <div className="flex items-center gap-4 mb-10">
-                <div className="flex -space-x-2">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <div
-                      key={i}
-                      className="w-10 h-10 rounded-full border-2 border-slate-900 bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white text-xs font-bold"
-                    >
-                      {String.fromCharCode(64 + i)}
-                    </div>
-                  ))}
-                </div>
-                <div>
-                  <div className="text-white font-semibold">2,847 traders joined today</div>
-                  <div className="text-gray-400 text-sm">Don't miss out on today's signals</div>
-                </div>
-              </div>
-
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <Link
-                  href="/dashboard"
-                  className="group relative bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-10 py-5 rounded-full font-bold text-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50"
+                <button
+                  onClick={() => {
+                    if (isLoggedIn) {
+                      router.push('/dashboard');
+                    } else {
+                      setAuthMode('register');
+                      setIsAuthModalOpen(true);
+                    }
+                  }}
+                  disabled={authLoading}
+                  className="group relative bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-10 py-5 rounded-full font-bold text-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-indigo-500/50 disabled:opacity-0"
                 >
                   <span className="relative z-10 flex items-center gap-2 justify-center">
-                    Get Started Free
+                    {isLoggedIn ? 'Go to Dashboard' : 'Get Started Free'}
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </Link>
+                </button>
 
                 <button
                   onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
@@ -681,7 +718,16 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <InteractiveCalculator />
+          <InteractiveCalculator
+            onGetStarted={() => {
+              if (isLoggedIn) {
+                router.push('/dashboard');
+              } else {
+                setAuthMode('register');
+                setIsAuthModalOpen(true);
+              }
+            }}
+          />
         </div>
       </section>
 
@@ -746,16 +792,23 @@ export default function LandingPage() {
                 Your First Profitable Trade Is Minutes Away
               </h2>
               <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                Join 2,847 traders who started today. Don't let another profitable signal pass you by.
+                Join 12,483 active traders this week. Don't let another profitable signal pass you by.
               </p>
 
-              <Link
-                href="/dashboard"
+              <button
+                onClick={() => {
+                  if (isLoggedIn) {
+                    router.push('/dashboard');
+                  } else {
+                    setAuthMode('register');
+                    setIsAuthModalOpen(true);
+                  }
+                }}
                 className="inline-flex items-center gap-3 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white px-12 py-6 rounded-full font-bold text-xl hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/50 group"
               >
-                Launch Dashboard Now
+                {isLoggedIn ? 'Go to Dashboard' : 'Launch Dashboard Now'}
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              </button>
 
               <div className="flex flex-wrap items-center justify-center gap-8 text-gray-300 text-sm mt-10">
                 <div className="flex items-center gap-2">
@@ -832,6 +885,13 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        defaultMode={authMode}
+      />
     </div>
   );
 }
