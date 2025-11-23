@@ -1,6 +1,7 @@
 'use client';
 
 import { logoutUser } from '@/app/actions/auth';
+import ChangePassword from './ChangePassword';
 
 interface DashboardHeaderProps {
   userName: string;
@@ -31,6 +32,7 @@ export default function DashboardHeader({ userName, userEmail }: DashboardHeader
               <p className="text-sm font-medium text-gray-900 dark:text-white">{userName}</p>
               <p className="text-xs text-gray-600 dark:text-gray-400">{userEmail}</p>
             </div>
+            <ChangePassword />
             <button
               onClick={handleLogout}
               className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition-colors"

@@ -6,7 +6,6 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getTranslations } from '@/locales';
 import LanguageSelector from '@/components/LanguageSelector';
-import PasswordProtection from '@/components/PasswordProtection';
 import DisclaimerBanner from '@/components/DisclaimerBanner';
 import ComprehensiveDisclaimer from '@/components/ComprehensiveDisclaimer';
 import HeroSection from '@/components/HeroSection';
@@ -68,7 +67,7 @@ export default function ClientDashboard() {
   };
 
   return (
-    <PasswordProtection>
+    <>
       <DisclaimerBanner language={language} />
       <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
         {/* Compact Header with Countdown */}
@@ -249,6 +248,6 @@ export default function ClientDashboard() {
         </div>
       </footer>
     </div>
-    </PasswordProtection>
+    </>
   );
 }

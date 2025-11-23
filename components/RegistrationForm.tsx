@@ -134,6 +134,30 @@ export default function RegistrationForm({ onSwitchToLogin }: { onSwitchToLogin:
           />
         </div>
 
+        <div>
+          <label htmlFor="referralSource" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            Where did you hear about us?
+          </label>
+          <select
+            id="referralSource"
+            name="referralSource"
+            required
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          >
+            <option value="">Select one...</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Instagram">Instagram</option>
+            <option value="YouTube">YouTube</option>
+            <option value="TikTok">TikTok</option>
+            <option value="Friend/Family">Friend/Family</option>
+            <option value="Google Search">Google Search</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Telegram">Telegram</option>
+            <option value="Event/Seminar">Event/Seminar</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
         <button
           type="submit"
           disabled={loading}

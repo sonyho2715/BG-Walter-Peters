@@ -11,6 +11,7 @@ const registrationSchema = z.object({
   email: z.string().email('Invalid email address'),
   phone: z.string().min(10, 'Phone number must be at least 10 digits'),
   teamUnder: z.string().min(2, 'Team name is required'),
+  referralSource: z.string().min(2, 'Please tell us where you heard about us'),
 });
 
 const loginSchema = z.object({
@@ -25,6 +26,7 @@ export async function registerUser(formData: FormData) {
       email: formData.get('email') as string,
       phone: formData.get('phone') as string,
       teamUnder: formData.get('teamUnder') as string,
+      referralSource: formData.get('referralSource') as string,
     };
 
     const validated = registrationSchema.parse(data);
@@ -52,6 +54,7 @@ export async function registerUser(formData: FormData) {
         email: validated.email,
         phone: validated.phone,
         teamUnder: validated.teamUnder,
+        referralSource: validated.referralSource,
         password: hashedPassword,
       },
     });
@@ -159,4 +162,74 @@ export async function checkAuth() {
       email: session.email,
     } : null,
   };
+}
+
+const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, 'Current password is required'),
+  newPassword: z.string().min(8, 'New password must be at least 8 characters'),
+});
+
+export async function changePassword(formData: FormData) {
+  try {
+    const session = await getSession();
+    if (!session?.userId) {
+      return {
+        success: false,
+        error: 'Unauthorized. Please log in.'
+      };
+    }
+
+    const data = {
+      currentPassword: formData.get('currentPassword') as string,
+      newPassword: formData.get('newPassword') as string,
+    };
+
+    const validated = changePasswordSchema.parse(data);
+
+    // Get user from database
+    const user = await db.user.findUnique({
+      where: { id: session.userId },
+    });
+
+    if (!user) {
+      return {
+        success: false,
+        error: 'User not found'
+      };
+    }
+
+    // Verify current password
+    const isValidPassword = await bcrypt.compare(validated.currentPassword, user.password);
+
+    if (!isValidPassword) {
+      return {
+        success: false,
+        error: 'Current password is incorrect'
+      };
+    }
+
+    // Hash new password
+    const hashedNewPassword = await bcrypt.hash(validated.newPassword, 10);
+
+    // Update password
+    await db.user.update({
+      where: { id: session.userId },
+      data: { password: hashedNewPassword },
+    });
+
+    return { success: true };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return {
+        success: false,
+        error: error.errors[0].message
+      };
+    }
+
+    console.error('Change password error:', error);
+    return {
+      success: false,
+      error: 'Failed to change password. Please try again.'
+    };
+  }
 }
