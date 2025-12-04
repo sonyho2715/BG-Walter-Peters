@@ -109,26 +109,26 @@ export default function LandingPage() {
 
   const testimonials = [
     {
-      name: 'Sarah L.',
+      name: 'Keoni M.',
       role: 'Works from Phone',
-      location: 'Singapore',
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80',
+      location: 'Honolulu',
+      initials: 'KM',
       text: 'I started with just $1,000 and no experience. The signals come straight to my phone, and I trade during my commute. Life-changing.',
       profit: '+127%',
     },
     {
-      name: 'Michael R.',
+      name: 'Leilani K.',
       role: 'Business Owner',
-      location: 'United States',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&q=80',
+      location: 'Maui',
+      initials: 'LK',
       text: 'Zero fees, 2 signals daily, dividends 3 times a month. The transparency and simplicity sold me. No gimmicks, just results.',
       profit: '+89%',
     },
     {
-      name: 'Chen W.',
+      name: 'Kaimana T.',
       role: 'Building a Team',
-      location: 'Hong Kong',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80',
+      location: 'Kailua',
+      initials: 'KT',
       text: 'The referral program is incredible. I\'ve built a network that earns passive income while helping others achieve financial freedom.',
       profit: '+156%',
     },
@@ -554,13 +554,8 @@ export default function LandingPage() {
                 {/* Author */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                      <Image
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        fill
-                        className="object-cover"
-                      />
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg">
+                      {testimonial.initials}
                     </div>
                     <div>
                       <div className="font-semibold text-slate-900 dark:text-white">{testimonial.name}</div>
