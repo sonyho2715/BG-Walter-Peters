@@ -2,8 +2,15 @@
 
 import { useState } from 'react';
 import { changePassword } from '@/app/actions/auth';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { Key } from 'lucide-react';
 
-export default function ChangePassword() {
+interface ChangePasswordProps {
+  compact?: boolean;
+}
+
+export default function ChangePassword({ compact = false }: ChangePasswordProps) {
+  const { language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -42,15 +49,24 @@ export default function ChangePassword() {
   }
 
   if (!isOpen) {
+    if (compact) {
+      return (
+        <button
+          onClick={() => setIsOpen(true)}
+          className="p-2 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg transition-colors"
+          title={language === 'en' ? 'Change Password' : 'Đổi Mật Khẩu'}
+        >
+          <Key className="w-5 h-5" />
+        </button>
+      );
+    }
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors"
+        className="w-full flex items-center gap-3 px-3 py-2.5 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-xl font-medium transition-colors"
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-        </svg>
-        Change Password
+        <Key className="w-5 h-5" />
+        <span>{language === 'en' ? 'Change Password' : 'Đổi Mật Khẩu'}</span>
       </button>
     );
   }
@@ -96,7 +112,7 @@ export default function ChangePassword() {
               id="currentPassword"
               name="currentPassword"
               required
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full text-base px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               placeholder="Enter your current password"
             />
           </div>
@@ -111,7 +127,7 @@ export default function ChangePassword() {
               name="newPassword"
               required
               minLength={8}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full text-base px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               placeholder="At least 8 characters"
             />
           </div>
@@ -126,7 +142,7 @@ export default function ChangePassword() {
               name="confirmPassword"
               required
               minLength={8}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+              className="w-full text-base px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               placeholder="Re-enter new password"
             />
           </div>

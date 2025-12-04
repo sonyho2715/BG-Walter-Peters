@@ -27,23 +27,25 @@ export default function DisclaimerBanner({ language }: DisclaimerBannerProps) {
   const t = content[language];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-yellow-50 dark:bg-yellow-900/90 border-t-4 border-yellow-400 dark:border-yellow-600 shadow-lg backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        <div className="flex items-start gap-4">
-          <div className="flex-shrink-0">
-            <span className="text-3xl">⚠️</span>
-          </div>
-          <div className="flex-1">
-            <h4 className="font-bold text-yellow-900 dark:text-yellow-100 mb-2">
-              {t.title}
-            </h4>
-            <p className="text-sm text-yellow-800 dark:text-yellow-200">
-              {t.text}
-            </p>
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-yellow-50 dark:bg-yellow-900/90 border-t-4 border-yellow-400 dark:border-yellow-600 shadow-lg backdrop-blur-sm safe-area-inset-bottom">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
+        <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
+          <div className="flex items-start gap-3 flex-1">
+            <div className="flex-shrink-0">
+              <span className="text-2xl sm:text-3xl">⚠️</span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="font-bold text-yellow-900 dark:text-yellow-100 mb-1 sm:mb-2 text-sm sm:text-base">
+                {t.title}
+              </h4>
+              <p className="text-xs sm:text-sm text-yellow-800 dark:text-yellow-200 line-clamp-3 sm:line-clamp-none">
+                {t.text}
+              </p>
+            </div>
           </div>
           <button
             onClick={() => setIsVisible(false)}
-            className="flex-shrink-0 bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors text-sm"
+            className="flex-shrink-0 w-full sm:w-auto min-h-[44px] bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-4 py-2.5 rounded-lg transition-colors text-sm"
           >
             {t.button}
           </button>

@@ -7,8 +7,8 @@ interface InvitationCodeProps {
   language: 'en' | 'vi';
 }
 
-const INVITATION_CODE = 'A3k16Uam5S00';
-const INVITATION_LINK = `https://dsj927.com/pc/#/register?code=${INVITATION_CODE}`;
+const INVITATION_CODE = '9vbatfsvno00';
+const INVITATION_LINK = 'https://dsj927.com/pc/#/register?code=9vbatfsvno00';
 
 export default function InvitationCode({ language }: InvitationCodeProps) {
   const [copiedCode, setCopiedCode] = useState(false);
@@ -95,32 +95,32 @@ export default function InvitationCode({ language }: InvitationCodeProps) {
   }, []);
 
   return (
-    <div className="bg-gray-900 dark:bg-gray-950 rounded-xl p-6 mb-6">
+    <div className="bg-gray-900 dark:bg-gray-950 rounded-xl p-4 sm:p-6 mb-6">
       {/* Success Animation for Share */}
       {showShareSuccess && (
-        <div className="mb-4 p-4 bg-green-500/20 border border-green-500 rounded-lg animate-fade-in">
-          <p className="text-green-400 text-center font-semibold">
-            ✓ {language === 'en' ? 'Link copied to clipboard! Ready to share.' : 'Đã sao chép link! Sẵn sàng chia sẻ.'}
+        <div className="mb-4 p-3 sm:p-4 bg-green-500/20 border border-green-500 rounded-lg animate-fade-in">
+          <p className="text-green-400 text-center font-semibold text-sm sm:text-base">
+            ✓ {language === 'en' ? 'Link copied! Ready to share.' : 'Đã sao chép link!'}
           </p>
         </div>
       )}
 
-      <div className="space-y-6">
+      <div className="space-y-5 sm:space-y-6">
         {/* Invitation Code */}
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-2">
             {language === 'en' ? 'My invitation code' : 'Mã mời của tôi'}
           </label>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <input
               type="text"
               value={INVITATION_CODE}
               readOnly
-              className="flex-1 px-4 py-3 bg-gray-800 text-white rounded-lg font-mono text-lg border border-gray-700 focus:outline-none focus:border-yellow-500"
+              className="flex-1 px-4 py-3 bg-gray-800 text-white rounded-lg font-mono text-base sm:text-lg border border-gray-700 focus:outline-none focus:border-yellow-500"
             />
             <button
               onClick={() => copyToClipboard(INVITATION_CODE, 'code')}
-              className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap active:scale-95"
+              className="min-h-[44px] px-4 sm:px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 whitespace-nowrap active:scale-95"
             >
               {copiedCode ? (
                 <>
@@ -130,12 +130,12 @@ export default function InvitationCode({ language }: InvitationCodeProps) {
               ) : (
                 <>
                   <Copy size={18} />
-                  {language === 'en' ? 'Click copy' : 'Nhấn sao'}
+                  {language === 'en' ? 'Copy' : 'Sao chép'}
                 </>
               )}
             </button>
           </div>
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-gray-400 mt-1.5 hidden sm:block">
             {language === 'en' ? '💡 Tip: Press Ctrl+C to copy' : '💡 Mẹo: Nhấn Ctrl+C để sao chép'}
           </p>
         </div>
@@ -145,56 +145,56 @@ export default function InvitationCode({ language }: InvitationCodeProps) {
           <label className="block text-sm font-medium text-gray-300 mb-2">
             {language === 'en' ? 'My invitation code link' : 'Link mã mời của tôi'}
           </label>
-          <div className="flex gap-2">
+          <div className="space-y-2">
             <input
               type="text"
               value={INVITATION_LINK}
               readOnly
-              className="flex-1 px-4 py-3 bg-gray-800 text-white rounded-lg font-mono text-sm border border-gray-700 focus:outline-none focus:border-yellow-500 break-all cursor-pointer hover:border-blue-500"
-              onClick={openInvitationLink}
-              title={language === 'en' ? 'Click to open link' : 'Nhấn để mở link'}
+              className="w-full px-4 py-3 bg-gray-800 text-white rounded-lg font-mono text-xs sm:text-sm border border-gray-700 focus:outline-none focus:border-yellow-500 truncate"
             />
-            <button
-              onClick={openInvitationLink}
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap active:scale-95"
-            >
-              <ExternalLink size={18} />
-              {language === 'en' ? 'Open' : 'Mở'}
-            </button>
-            <button
-              onClick={() => copyToClipboard(INVITATION_LINK, 'link')}
-              className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap active:scale-95"
-            >
-              {copiedLink ? (
-                <>
-                  <Check size={18} className="animate-bounce" />
-                  {language === 'en' ? 'Copied!' : 'Đã sao!'}
-                </>
-              ) : (
-                <>
-                  <Copy size={18} />
-                  {language === 'en' ? 'Copy' : 'Sao'}
-                </>
-              )}
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={openInvitationLink}
+                className="flex-1 min-h-[44px] px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
+              >
+                <ExternalLink size={18} />
+                {language === 'en' ? 'Open' : 'Mở'}
+              </button>
+              <button
+                onClick={() => copyToClipboard(INVITATION_LINK, 'link')}
+                className="flex-1 min-h-[44px] px-4 py-2.5 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
+              >
+                {copiedLink ? (
+                  <>
+                    <Check size={18} className="animate-bounce" />
+                    {language === 'en' ? 'Copied!' : 'Đã sao!'}
+                  </>
+                ) : (
+                  <>
+                    <Copy size={18} />
+                    {language === 'en' ? 'Copy' : 'Sao chép'}
+                  </>
+                )}
+              </button>
+            </div>
           </div>
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-gray-400 mt-1.5 hidden sm:block">
             {language === 'en' ? '💡 Tip: Click the link or press Ctrl+Shift+C to copy' : '💡 Mẹo: Nhấn vào link hoặc nhấn Ctrl+Shift+C để sao chép'}
           </p>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2 pt-4">
+        <div className="flex gap-2 pt-2 sm:pt-4">
           <button
             onClick={shareInvitation}
-            className="flex-1 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
+            className="flex-1 min-h-[44px] px-4 sm:px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
           >
             <Share2 size={18} />
             {language === 'en' ? 'Share' : 'Chia sẻ'}
           </button>
           <button
             onClick={printInvitation}
-            className="flex-1 px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
+            className="flex-1 min-h-[44px] px-4 sm:px-6 py-2.5 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 active:scale-95"
           >
             <Printer size={18} />
             {language === 'en' ? 'Print' : 'In'}
@@ -202,16 +202,16 @@ export default function InvitationCode({ language }: InvitationCodeProps) {
         </div>
 
         {/* Instructions */}
-        <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-4 mt-4">
-          <p className="text-sm text-blue-200">
+        <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-3 sm:p-4 mt-3 sm:mt-4">
+          <p className="text-xs sm:text-sm text-blue-200">
             {language === 'en'
               ? '💡 Share this invitation code or link with new members to help them register on DSJ Exchange.'
-              : '💡 Chia sẻ mã mời hoặc liên kết này với các thành viên mới để giúp họ đăng ký trên DSJ Exchange.'}
+              : '💡 Chia sẻ mã mời hoặc link với người mới để giúp họ đăng ký DSJ.'}
           </p>
         </div>
 
-        {/* Keyboard Shortcuts Help */}
-        <details className="bg-gray-800/50 rounded-lg p-4">
+        {/* Keyboard Shortcuts Help - Hidden on mobile */}
+        <details className="bg-gray-800/50 rounded-lg p-3 sm:p-4 hidden sm:block">
           <summary className="cursor-pointer text-sm font-semibold text-gray-300 hover:text-white">
             ⌨️ {language === 'en' ? 'Keyboard Shortcuts' : 'Phím tắt'}
           </summary>

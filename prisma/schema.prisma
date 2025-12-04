@@ -10,16 +10,104 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// SaaS Multi-tenancy: Organizations/Workspaces
+model Organization {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique  // "acme-corp" → subdomain or path
+
+  // Branding
+  logoUrl     String?
+  primaryColor String  @default("#6366f1")
+
+  // Settings
+  isActive    Boolean  @default(true)
+
+  // Relationships
+  users       User[]
+  recruits    Recruit[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([slug])
+}
+
 model User {
   id             String   @id @default(cuid())
   fullName       String
-  email          String   @unique
+  email          String
   phone          String
   teamUnder      String
-  referralSource String   @default("Unknown") // Where did you hear about us
+  referralSource String   @default("Unknown")
   password       String
+  role           String   @default("USER")  // USER, ADMIN, MANAGER
+
+  // Multi-tenancy
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
+  @@unique([email, organizationId])
   @@index([email])
+  @@index([organizationId])
+}
+
+// White-label recruitment pages
+model Recruit {
+  id           String   @id @default(cuid())
+  slug         String   // "john-doe" → domain.com/r/john-doe
+
+  // Basic Info
+  name         String
+  email        String
+  phone        String?
+  password     String   // Hashed password for editing their page
+
+  // Referral Info
+  referralCode String
+  referralLink String
+
+  // Page Customization
+  leader       String?  // Leader title/designation
+  headline     String?  // Custom headline (default: "Turn $500 into $1,000+")
+  subheadline  String?  // Custom subheadline
+  bio          String?  // About them / welcome message
+  photoUrl     String?  // Profile photo URL
+  youtubeUrl   String?  // YouTube video URL to embed
+
+  // Branding Colors (hex values)
+  primaryColor String   @default("#6366f1")  // Indigo
+  accentColor  String   @default("#a855f7")  // Purple
+
+  // Custom Testimonials (JSON array)
+  // Format: [{name: "John", location: "USA", text: "...", profit: "+127%"}]
+  testimonials Json?
+
+  // Custom Features (JSON array)
+  // Format: [{title: "...", description: "...", icon: "TrendingUp"}]
+  customFeatures Json?
+
+  // Social Links
+  telegramLink  String?
+  whatsappLink  String?
+
+  // Settings
+  isActive     Boolean  @default(true)
+  showTestimonials Boolean @default(true)
+  showCalculator   Boolean @default(true)
+
+  // Multi-tenancy
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([slug, organizationId])
+  @@index([slug])
+  @@index([email])
+  @@index([organizationId])
 }

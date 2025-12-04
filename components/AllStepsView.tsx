@@ -35,28 +35,30 @@ export default function AllStepsView({
             className="scroll-mt-24"
           >
             {/* Step Header */}
-            <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 rounded-t-lg px-6 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <span className="text-4xl">{tutorial.icon}</span>
-                <div>
-                  <div className="flex items-center gap-3">
-                    <h2 className="text-2xl font-bold text-white">{tutorial.title}</h2>
-                    {isCompleted && <CheckCircle className="text-green-300" size={24} />}
+            <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 rounded-t-lg px-4 sm:px-6 py-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div className="flex items-start sm:items-center gap-3 sm:gap-4">
+                  <span className="text-3xl sm:text-4xl flex-shrink-0">{tutorial.icon}</span>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                      <h2 className="text-lg sm:text-2xl font-bold text-white">{tutorial.title}</h2>
+                      {isCompleted && <CheckCircle className="text-green-300 flex-shrink-0" size={20} />}
+                    </div>
+                    <p className="text-indigo-100 text-xs sm:text-sm mt-1 line-clamp-2 sm:line-clamp-none">{tutorial.description}</p>
+                    <p className="text-indigo-200 text-xs mt-1">⏱️ {tutorial.duration}</p>
                   </div>
-                  <p className="text-indigo-100 text-sm mt-1">{tutorial.description}</p>
-                  <p className="text-indigo-200 text-xs mt-1">⏱️ {tutorial.duration}</p>
                 </div>
+                <button
+                  onClick={() => handleStepComplete(stepIdx)}
+                  className={`w-full sm:w-auto min-h-[44px] px-4 py-2.5 rounded-lg font-semibold transition flex-shrink-0 text-sm sm:text-base ${
+                    isCompleted
+                      ? 'bg-green-500 text-white'
+                      : 'bg-white text-indigo-700 hover:bg-indigo-50'
+                  }`}
+                >
+                  {isCompleted ? `✓ ${t.common.completed}` : t.common.markComplete}
+                </button>
               </div>
-              <button
-                onClick={() => handleStepComplete(stepIdx)}
-                className={`px-4 py-2 rounded-lg font-semibold transition ${
-                  isCompleted
-                    ? 'bg-green-500 text-white'
-                    : 'bg-white text-indigo-700 hover:bg-indigo-50'
-                }`}
-              >
-                {isCompleted ? `✓ ${t.common.completed}` : t.common.markComplete}
-              </button>
             </div>
 
             {/* Step Content */}

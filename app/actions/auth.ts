@@ -31,8 +31,8 @@ export async function registerUser(formData: FormData) {
 
     const validated = registrationSchema.parse(data);
 
-    // Check if user already exists
-    const existingUser = await db.user.findUnique({
+    // Check if user already exists (without org, email is still practically unique)
+    const existingUser = await db.user.findFirst({
       where: { email: validated.email },
     });
 
@@ -64,6 +64,8 @@ export async function registerUser(formData: FormData) {
     session.userId = user.id;
     session.email = user.email;
     session.fullName = user.fullName;
+    session.role = user.role;
+    session.organizationId = user.organizationId ?? undefined;
     session.isLoggedIn = true;
     await session.save();
 
@@ -100,8 +102,8 @@ export async function loginUser(formData: FormData) {
 
     const validated = loginSchema.parse(data);
 
-    // Find user
-    const user = await db.user.findUnique({
+    // Find user (without org, email is still practically unique)
+    const user = await db.user.findFirst({
       where: { email: validated.email },
     });
 
@@ -127,6 +129,8 @@ export async function loginUser(formData: FormData) {
     session.userId = user.id;
     session.email = user.email;
     session.fullName = user.fullName;
+    session.role = user.role;
+    session.organizationId = user.organizationId ?? undefined;
     session.isLoggedIn = true;
     await session.save();
 

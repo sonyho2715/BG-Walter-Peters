@@ -5,6 +5,8 @@ export interface SessionData {
   userId: string;
   email: string;
   fullName: string;
+  role: string;           // USER, ADMIN, MANAGER
+  organizationId?: string; // For multi-tenant SaaS
   isLoggedIn: boolean;
 }
 

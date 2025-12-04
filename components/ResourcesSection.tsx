@@ -1,18 +1,81 @@
 'use client';
 
+import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import Image from 'next/image';
+import { X, ZoomIn } from 'lucide-react';
 
 export default function ResourcesSection() {
   const { language } = useLanguage();
+  const [selectedImage, setSelectedImage] = useState<{ src: string; title: string } | null>(null);
+
+  const officialDocuments = [
+    {
+      src: '/documents/colorado-incorporation-certificate.png',
+      title: language === 'en' ? 'Colorado Incorporation Certificate' : 'Giấy Chứng Nhận Thành Lập Colorado',
+      description: language === 'en'
+        ? 'BG Wealth Sharing LTD - Colorado Corporation (April 2025)'
+        : 'BG Wealth Sharing LTD - Tập Đoàn Colorado (Tháng 4/2025)'
+    },
+    {
+      src: '/documents/bg-sec-ria-license.png',
+      title: language === 'en' ? 'SEC RIA License' : 'Giấy Phép SEC RIA',
+      description: language === 'en'
+        ? 'U.S. Securities and Exchange Commission RIA Permission (Aug 2025)'
+        : 'Giấy phép RIA Ủy Ban Chứng Khoán Hoa Kỳ (Tháng 8/2025)'
+    },
+    {
+      src: '/documents/dsj-exchange-sec-registration.png',
+      title: language === 'en' ? 'DSJ Exchange SEC Registration' : 'Đăng Ký SEC Sàn DSJ',
+      description: language === 'en'
+        ? 'DSJ Exchange PTY Ltd - SEC Registered (CIK: 0002076856)'
+        : 'DSJ Exchange PTY Ltd - Đăng Ký SEC (CIK: 0002076856)'
+    },
+    {
+      src: '/documents/dsj-exchange-sec-certificate.png',
+      title: language === 'en' ? 'DSJ SEC Certificate' : 'Chứng Nhận SEC DSJ',
+      description: language === 'en'
+        ? 'Official SEC certificate for DSJ Exchange (July 2025)'
+        : 'Chứng nhận SEC chính thức cho Sàn DSJ (Tháng 7/2025)'
+    },
+    {
+      src: '/documents/bg-stock-certificate.png',
+      title: language === 'en' ? 'BG Stock Certificate' : 'Chứng Nhận Cổ Phiếu BG',
+      description: language === 'en'
+        ? 'BG Wealth Sharing LTD - 70 Million Shares Stock Certificate'
+        : 'BG Wealth Sharing LTD - Chứng Nhận 70 Triệu Cổ Phiếu'
+    },
+    {
+      src: '/documents/investment-partnership-commitment.png',
+      title: language === 'en' ? 'Investment Partnership Commitment' : 'Cam Kết Đối Tác Đầu Tư',
+      description: language === 'en'
+        ? '10-year commitment letter from BG Wealth Sharing LTD'
+        : 'Thư cam kết 10 năm từ BG Wealth Sharing LTD'
+    },
+    {
+      src: '/documents/agent-team-bonus-structure.png',
+      title: language === 'en' ? 'Agent Team Bonus Structure' : 'Cơ Cấu Thưởng Đội Đại Lý',
+      description: language === 'en'
+        ? 'Manager bonuses and promotion rewards (LV1-LV12)'
+        : 'Thưởng quản lý và phần thưởng thăng cấp (LV1-LV12)'
+    },
+    {
+      src: '/documents/trading-phases-profit-chart.png',
+      title: language === 'en' ? 'Trading Phases & Profit Chart' : 'Biểu Đồ Giai Đoạn & Lợi Nhuận',
+      description: language === 'en'
+        ? 'Unit levels and profit phases breakdown'
+        : 'Phân tích cấp đơn vị và giai đoạn lợi nhuận'
+    }
+  ];
 
   const resources = [
     {
       title: language === 'en' ? 'BG Wealth Sharing Complete Presentation' : 'Bài Thuyết Trình Đầy Đủ BG Chia Sẻ Tài Sản',
       description: language === 'en'
-        ? 'Comprehensive 33-page presentation covering all aspects of BG Wealth Sharing including referral bonuses, projection tables, and team building strategy'
-        : 'Bài thuyết trình 33 trang toàn diện bao gồm tất cả khía cạnh của BG Chia Sẻ Tài Sản bao gồm thưởng giới thiệu, bảng dự báo và chiến lược xây dựng team',
+        ? 'Comprehensive presentation covering all aspects of BG Wealth Sharing including referral bonuses, projection tables, and team building strategy'
+        : 'Bài thuyết trình toàn diện bao gồm tất cả khía cạnh của BG Chia Sẻ Tài Sản bao gồm thưởng giới thiệu, bảng dự báo và chiến lược xây dựng team',
       icon: '📊',
-      url: '/docs/BG-PPT11.pdf',
+      url: '/docs/BG-Presentation-ENG.pdf',
       color: 'emerald',
       topics: language === 'en'
         ? ['Referral Bonuses', '30-Day Projections', 'Team Building', 'Bonus Signals']
@@ -136,15 +199,83 @@ export default function ResourcesSection() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 md:p-8 shadow-lg border border-gray-200 dark:border-gray-700">
-      <div className="flex items-center gap-3 mb-6">
-        <span className="text-3xl">📖</span>
-        <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-          {language === 'en' ? 'Learning Resources' : 'Tài Liệu Học Tập'}
-        </h3>
-      </div>
+    <>
+      {/* Image Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            onClick={() => setSelectedImage(null)}
+            className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <div className="max-w-4xl max-h-[90vh] relative" onClick={(e) => e.stopPropagation()}>
+            <Image
+              src={selectedImage.src}
+              alt={selectedImage.title}
+              width={1200}
+              height={800}
+              className="object-contain max-h-[85vh] w-auto rounded-lg"
+            />
+            <p className="text-center text-white mt-4 font-medium">{selectedImage.title}</p>
+          </div>
+        </div>
+      )}
 
-      {/* PDF Documents */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 md:p-8 shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="flex items-center gap-3 mb-6">
+          <span className="text-3xl">📖</span>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+            {language === 'en' ? 'Learning Resources' : 'Tài Liệu Học Tập'}
+          </h3>
+        </div>
+
+        {/* Official Documents Gallery */}
+        <div className="mb-8">
+          <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
+            <span>🏛️</span> {language === 'en' ? 'Official Documents & Certificates' : 'Tài Liệu & Chứng Nhận Chính Thức'}
+          </h4>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            {language === 'en'
+              ? 'Click any document to view full size'
+              : 'Nhấp vào bất kỳ tài liệu nào để xem kích thước đầy đủ'}
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {officialDocuments.map((doc, idx) => (
+              <button
+                key={idx}
+                onClick={() => setSelectedImage({ src: doc.src, title: doc.title })}
+                className="group relative bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-200 hover:border-indigo-300 dark:hover:border-indigo-600"
+              >
+                <div className="aspect-[4/3] relative">
+                  <Image
+                    src={doc.src}
+                    alt={doc.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                    <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </div>
+                <div className="p-2">
+                  <p className="text-xs font-medium text-gray-900 dark:text-gray-100 truncate">
+                    {doc.title}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                    {doc.description}
+                  </p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* PDF Documents */}
       <div className="mb-8">
         <h4 className="font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
           <span>📄</span> {language === 'en' ? 'Reference Documents' : 'Tài Liệu Tham Khảo'}
@@ -254,6 +385,7 @@ export default function ResourcesSection() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
