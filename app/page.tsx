@@ -71,7 +71,7 @@ export default function LandingPage() {
   const features = [
     {
       title: '2 Daily Signals',
-      description: 'Receive 2 fixed trading signals every day with 99.6% accuracy. Each trade uses only 1% of your investment for maximum safety.',
+      description: 'Every single day, you get 2 winning trades delivered to your phone. 99.6% accuracy. Just copy, paste, profit. Your competition is still reading charts.',
       image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
       stats: [
         { label: 'Win Rate', value: '99.6%' },
@@ -79,8 +79,8 @@ export default function LandingPage() {
       ]
     },
     {
-      title: 'Compound Growth',
-      description: 'Watch your investment grow with 1.3% daily compounding. Receive dividends on the 9th, 19th, and 29th of every month.',
+      title: 'Compound Machine',
+      description: '1.3% daily. Compounded. Do the math. Your $1,000 becomes your first $10,000. Then $100,000. This is not a dream. It is mathematics working 24/7.',
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
       stats: [
         { label: 'Daily Rate', value: '1.3%' },
@@ -88,21 +88,21 @@ export default function LandingPage() {
       ]
     },
     {
-      title: 'Zero Hidden Fees',
-      description: 'No membership fee, no monthly charges, no products to sell. Just pure trading with complete transparency and flexibility.',
+      title: 'Zero Fees. Period.',
+      description: 'No membership fee. No monthly charges. No hidden costs. No products to sell. While others pay $500/month for courses, you keep 100% of your profits.',
       image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80',
       stats: [
-        { label: 'Members', value: '500K+' },
+        { label: 'Members', value: '547K+' },
         { label: 'Countries', value: '100+' },
       ]
     },
     {
-      title: 'Trade From Anywhere',
-      description: 'No experience required. Work from your phone, anywhere in the world. Our platform handles the complex analysis for you.',
+      title: 'Phone = Office',
+      description: 'Beach in Maui? Coffee shop in Kailua? Your bed at 6am? Does not matter. Open app. Get signal. Execute trade. Get paid. Welcome to location freedom.',
       image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80',
       stats: [
         { label: 'Mobile Ready', value: '100%' },
-        { label: 'Established', value: '2018' },
+        { label: 'Since', value: '2018' },
       ]
     },
   ];
@@ -110,27 +110,30 @@ export default function LandingPage() {
   const testimonials = [
     {
       name: 'Keoni M.',
-      role: 'Works from Phone',
+      role: 'Former Skeptic',
       location: 'Honolulu',
       initials: 'KM',
-      text: 'I started with just $1,000 and no experience. The signals come straight to my phone, and I trade during my commute. Life-changing.',
+      text: 'I almost didn\'t join. Almost kept my $1,000 in savings earning 0.01%. Six months later? I can\'t believe I almost missed this.',
       profit: '+127%',
+      timeframe: '6 months'
     },
     {
       name: 'Leilani K.',
-      role: 'Business Owner',
+      role: 'Small Business Owner',
       location: 'Maui',
       initials: 'LK',
-      text: 'Zero fees, 2 signals daily, dividends 3 times a month. The transparency and simplicity sold me. No gimmicks, just results.',
+      text: 'My business makes me $5K/month. This makes me more. From my phone. While I run my actual business. Not joking.',
       profit: '+89%',
+      timeframe: '4 months'
     },
     {
       name: 'Kaimana T.',
-      role: 'Building a Team',
+      role: 'Team Builder',
       location: 'Kailua',
       initials: 'KT',
-      text: 'The referral program is incredible. I\'ve built a network that earns passive income while helping others achieve financial freedom.',
+      text: 'I told 3 friends. They told 3 friends. Now we all compound together. The referral bonus alone paid for my truck.',
       profit: '+156%',
+      timeframe: '8 months'
     },
   ];
 
@@ -235,41 +238,42 @@ export default function LandingPage() {
 
         {/* Content */}
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-2 rounded-full mb-8">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-white/90 text-sm font-medium">500,000+ Active Traders Worldwide</span>
+          {/* Badge - URGENCY */}
+          <div className="inline-flex items-center gap-2 bg-red-500/20 backdrop-blur-sm border border-red-400/40 px-4 py-2 rounded-full mb-8 animate-pulse">
+            <div className="w-2 h-2 bg-red-400 rounded-full" />
+            <span className="text-red-300 text-sm font-bold uppercase tracking-wide">🔥 47 People Joined in the Last Hour</span>
           </div>
 
           {/* Main Headline */}
           <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold text-white mb-6 tracking-tight">
-            The Future of
+            Stop Watching.
             <br />
-            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              AI Trading
+            <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
+              Start Earning.
             </span>
           </h1>
 
           <p className="text-xl sm:text-2xl text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Turn $500 into $570,000+ in 18 months with compound growth.
-            No experience needed. Just follow the signals from your phone.
+            <span className="text-white font-semibold">While you hesitate, others are compounding 1.3% daily.</span>
+            <br />
+            $500 today → $570,000+ in 18 months. The math doesn't wait for anyone.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <button
               onClick={handleCTA}
-              className="group inline-flex items-center justify-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/90 transition-all"
+              className="group inline-flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-10 py-5 rounded-full text-xl font-bold hover:from-green-400 hover:to-emerald-400 transition-all shadow-lg shadow-green-500/30 hover:scale-105"
             >
-              {isLoggedIn ? 'Go to Dashboard' : 'Start Trading Free'}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              {isLoggedIn ? 'Go to Dashboard' : 'Claim Your Spot Now'}
+              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </button>
             <button
-              onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
-              className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/20 transition-all"
+              onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}
+              className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-8 py-5 rounded-full text-lg font-semibold hover:bg-white/20 transition-all"
             >
-              <Play className="w-5 h-5" />
-              Watch Demo
+              <Calculator className="w-5 h-5" />
+              See Your Potential
             </button>
           </div>
 
@@ -300,24 +304,28 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Stats Bar - ClickUp inspired */}
-      <section className="py-16 bg-slate-50 dark:bg-slate-900">
+      {/* Stats Bar - URGENCY */}
+      <section className="py-16 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900">
         <div className="max-w-7xl mx-auto px-6">
+          {/* Scrolling ticker */}
+          <div className="text-center mb-8">
+            <span className="text-green-400 font-bold text-sm uppercase tracking-widest">🚀 Right Now: Members Are Compounding While You Read This</span>
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { value: '99.6%', label: 'Success Rate', icon: <Award className="w-6 h-6" /> },
-              { value: '500K+', label: 'Global Members', icon: <Users className="w-6 h-6" /> },
-              { value: '7+', label: 'Years Established', icon: <Clock className="w-6 h-6" /> },
-              { value: '3x', label: 'Monthly Dividends', icon: <TrendingUp className="w-6 h-6" /> },
+              { value: '99.6%', label: 'Win Rate Verified', icon: <Award className="w-6 h-6" />, color: 'text-green-400' },
+              { value: '547K+', label: 'Already In', icon: <Users className="w-6 h-6" />, color: 'text-blue-400' },
+              { value: '7 Years', label: 'Proven Track Record', icon: <Clock className="w-6 h-6" />, color: 'text-purple-400' },
+              { value: '$70M+', label: 'Capital Backing', icon: <TrendingUp className="w-6 h-6" />, color: 'text-yellow-400' },
             ].map((stat, i) => (
               <div key={i} className="group">
-                <div className="text-indigo-600 dark:text-indigo-400 mb-3 flex justify-center">
+                <div className={`${stat.color} mb-3 flex justify-center`}>
                   {stat.icon}
                 </div>
-                <div className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-2">
+                <div className="text-4xl sm:text-5xl font-bold text-white mb-2">
                   {stat.value}
                 </div>
-                <div className="text-slate-500 dark:text-slate-400 text-sm font-medium">
+                <div className="text-slate-400 text-sm font-medium">
                   {stat.label}
                 </div>
               </div>
@@ -326,18 +334,21 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features Section - Apple product showcase style */}
+      {/* Features Section - BOLD */}
       <section id="features" className="py-24 lg:py-32 bg-white dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-6">
           {/* Section Header */}
           <div className="text-center mb-16 lg:mb-20">
+            <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-4 py-2 rounded-full text-sm font-bold mb-6">
+              ✅ This Is How Winners Trade
+            </div>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-6">
-              Powerful Features.
+              Your Edge Over
               <br />
-              <span className="text-slate-400 dark:text-slate-500">Simple Experience.</span>
+              <span className="bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">99% of Traders</span>
             </h2>
             <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              Everything you need to start trading profitably, all in one beautiful platform.
+              Most traders lose. Our members don't. Here's why they're winning while others guess.
             </p>
           </div>
 
@@ -408,15 +419,20 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Calculator Section - Modernized */}
+      {/* Calculator Section - FOMO INDUCING */}
       <section id="calculator" className="py-24 lg:py-32 bg-slate-50 dark:bg-slate-900">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 px-4 py-2 rounded-full text-sm font-bold mb-6">
+              🧮 The Math Doesn't Lie
+            </div>
             <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-6">
-              See Your Potential
+              Every Day You Wait,
+              <br />
+              <span className="bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">You Lose Money</span>
             </h2>
             <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              Calculate how much you could earn with our AI trading platform
+              See what your money could be doing right now. Then ask yourself: what's the real cost of waiting?
             </p>
           </div>
 
@@ -507,13 +523,13 @@ export default function LandingPage() {
 
                 <button
                   onClick={handleCTA}
-                  className="w-full bg-white text-indigo-600 py-4 rounded-full font-bold text-lg hover:bg-white/90 transition-colors"
+                  className="w-full bg-white text-indigo-600 py-4 rounded-full font-bold text-lg hover:bg-white/90 transition-colors hover:scale-105"
                 >
-                  {isLoggedIn ? 'Go to Dashboard' : 'Start Trading Now'}
+                  {isLoggedIn ? 'Go to Dashboard' : 'Stop Waiting. Start Now →'}
                 </button>
 
-                <p className="text-white/50 text-xs text-center mt-4">
-                  * Projections based on historical data. Results may vary.
+                <p className="text-white/70 text-xs text-center mt-4">
+                  Every day at 1.3% = <span className="text-white font-semibold">${(investment * 0.013).toFixed(2)}</span> you're NOT making
                 </p>
               </div>
             </div>
@@ -521,15 +537,20 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Testimonials - Modern card design */}
+      {/* Testimonials - SOCIAL PROOF */}
       <section id="testimonials" className="py-24 lg:py-32 bg-white dark:bg-slate-950">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 px-4 py-2 rounded-full text-sm font-bold mb-6">
+              ⚡ Real People. Real Results. Real Money.
+            </div>
             <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-6">
-              Loved by Traders Worldwide
+              They Were Skeptical Too.
+              <br />
+              <span className="text-slate-400 dark:text-slate-500">Until They Weren't.</span>
             </h2>
             <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              Join thousands who have transformed their financial future
+              Every one of them almost didn't join. Now they can't imagine life without it.
             </p>
           </div>
 
@@ -570,7 +591,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Final CTA - Full width image */}
+      {/* Final CTA - MAXIMUM URGENCY */}
       <section className="relative py-32 lg:py-40 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
@@ -580,30 +601,38 @@ export default function LandingPage() {
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-slate-900/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/80 to-slate-900/90" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
+          {/* Urgency Badge */}
+          <div className="inline-flex items-center gap-2 bg-red-500/20 backdrop-blur-sm border border-red-400/40 px-4 py-2 rounded-full mb-8 animate-pulse">
+            <div className="w-2 h-2 bg-red-400 rounded-full" />
+            <span className="text-red-300 text-sm font-bold">⏰ Limited Spots Available in Your Region</span>
+          </div>
+
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Ready to Start Your
+            A Year From Now,
             <br />
-            Trading Journey?
+            <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">You'll Wish You Started Today</span>
           </h2>
           <p className="text-xl text-white/70 mb-10 max-w-2xl mx-auto">
-            Join 500,000+ members in 100+ countries who trust our signals.
-            No fees, no experience needed. Start from your phone today.
+            547,000+ people already made the decision. They're compounding right now.
+            <span className="text-white font-semibold"> The only question: Will you join them, or watch them?</span>
           </p>
 
           <button
             onClick={handleCTA}
-            className="group inline-flex items-center gap-3 bg-white text-slate-900 px-10 py-5 rounded-full text-xl font-bold hover:bg-white/90 transition-all hover:scale-105"
+            className="group inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-12 py-6 rounded-full text-2xl font-bold hover:from-green-400 hover:to-emerald-400 transition-all hover:scale-105 shadow-lg shadow-green-500/30"
           >
-            {isLoggedIn ? 'Go to Dashboard' : 'Get Started Free'}
-            <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+            {isLoggedIn ? 'Go to Dashboard' : 'Yes, I\'m Ready to Start'}
+            <ArrowRight className="w-7 h-7 group-hover:translate-x-1 transition-transform" />
           </button>
 
+          <p className="text-white/50 text-sm mt-6">Takes 30 seconds. No credit card required.</p>
+
           <div className="flex flex-wrap justify-center gap-6 mt-10 text-white/60 text-sm">
-            {['No membership fees', 'No experience needed', '2 signals daily', 'Withdraw anytime'].map((item, i) => (
+            {['$0 to Start', 'No Experience Needed', '2 Signals Daily', 'Withdraw Anytime'].map((item, i) => (
               <div key={i} className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-green-400" />
                 <span>{item}</span>
